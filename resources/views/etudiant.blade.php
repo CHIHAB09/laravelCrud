@@ -5,19 +5,27 @@
 <div class="my-3 p-3 bg-body rounded shadow-sm">
     <h4 class="border-bottom pb-2 mb-4">Liste des etudiants inscrits</h4>
     <div class="mt-4">
+
+
+    <div class="d-flex justify-content-between mb-4">
+    {{ $etudiants->links() }}
+    <div><a href="{{ route('etudiant.create') }}" class="btn btn-primary">Ajouter un nouvel étudiant</a></div>
+    </div>
     
+    <!-- affichage des messages -->
     @if (session()->has('message'))
         <div>
             <p class="alert alert-success">
                 {{ session()->get('message') }}
             </p>
         </div>
-
+   <!--  @elseif (session()->has('messageDelete'))
+    <div>
+            <p class="alert alert-danger">
+                {{ session()->get('messageDelete') }}
+            </p>
+        </div> -->
     @endif
-    <div class="d-flex justify-content-between mb-4">
-    {{ $etudiants->links() }}
-    <div><a href="{{ route('etudiant.create') }}" class="btn btn-primary">Ajouter un nouvel étudiant</a></div>
-    </div>
         <table class="table table-bordered table-hover mt-2">
             <thead>
                 <tr>
@@ -42,7 +50,15 @@
                         <td>
                             <a href="" class="btn btn-info">Detail</a>
                             <a href="" class="btn btn-warning">Editer</a>
-                            <a href="" class="btn btn-danger">Supprimer</a>
+                            <!-- ICI ON RECUPERE L ELEMENT A SUPPRIMER AVEC DU JS POUR ETRE SUR QUE L UTILISATEUR VEULENT SUPPRIMER -->
+                            <a href="" class="btn btn-danger" onclick="if(confirm('Voulez-vous vraiment supprimer cet étudiant?{{ $etudiant->nom }}'))
+                            {document.getElementById('form-{{ $etudiant->id }}').submit() }">Supprimer</a>
+
+                            <form id="form-{{ $etudiant->id }}" action="{{ route('etudiant.delete', 
+                            ['etudiant' => $etudiant->id]) }}" method="post">
+                            @csrf
+                            <input type="hidden" name="_method" value="delete">
+                            </form>
                         </td>
                     </tr>
                     @endforeach

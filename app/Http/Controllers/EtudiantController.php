@@ -39,4 +39,13 @@ class EtudiantController extends Controller
         return redirect('etudiant')
                 ->with('message',"L'étudiant ajouter avec succés!!");
     }
+
+    public function delete($etudiant)
+    {
+        Etudiant::find($etudiant)
+                ->delete();
+
+        return redirect('etudiant')
+            ->with('message',"Etudiant supprimer avec succés!!");
+    }
 }
