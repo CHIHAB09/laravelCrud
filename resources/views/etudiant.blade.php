@@ -5,6 +5,15 @@
 <div class="my-3 p-3 bg-body rounded shadow-sm">
     <h4 class="border-bottom pb-2 mb-4">Liste des etudiants inscrits</h4>
     <div class="mt-4">
+    
+    @if (session()->has('message'))
+        <div>
+            <p class="alert alert-success">
+                {{ session()->get('message') }}
+            </p>
+        </div>
+
+    @endif
     <div class="d-flex justify-content-between mb-4">
     {{ $etudiants->links() }}
     <div><a href="{{ route('etudiant.create') }}" class="btn btn-primary">Ajouter un nouvel étudiant</a></div>

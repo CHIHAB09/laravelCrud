@@ -20,4 +20,23 @@ class EtudiantController extends Controller
         $classes = Classe::all();
         return view('createEtudiant', compact('classes'));
     }
+    /* la page create renvoie vers le store pour valider le formulaire */
+    public function store(Request $request)
+    {
+        $request->validate([
+            "nom"=>"required",
+            "prenom"=>"required",
+            "classe_id"=>"required"
+
+            //Etudiant::create($request->all());
+        ]);
+
+        Etudiant::create([
+            "nom" => $request->input('nom'),
+            "prenom" => $request->input('prenom'),
+            "classe_id" => $request->classe_id
+        ]);
+        return redirect('etudiant')
+                ->with('message',"L'étudiant ajouter avec succés!!");
+    }
 }
