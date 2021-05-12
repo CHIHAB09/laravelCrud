@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Classe;
 use App\Models\Etudiant;
 use Illuminate\Http\Request;
 
@@ -12,5 +13,11 @@ class EtudiantController extends Controller
     {
         $etudiants = Etudiant::orderBy('nom', 'asc')->paginate(5);
         return view('etudiant', compact('etudiants'));
+    }
+
+    public function create()
+    {
+        $classes = Classe::all();
+        return view('createEtudiant', compact('classes'));
     }
 }

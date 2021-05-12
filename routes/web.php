@@ -18,3 +18,5 @@ Route::get('/', function () {
     return view('welcome');
 })->name('accueil');
 Route::get('/etudiant', [EtudiantController::class, 'index'])->name('etudiant');
+//methode create
+Route::get('/etudiant/create', [EtudiantController::class, 'create'])->name('etudiant.create');

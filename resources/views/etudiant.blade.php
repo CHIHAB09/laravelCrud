@@ -5,8 +5,9 @@
 <div class="my-3 p-3 bg-body rounded shadow-sm">
     <h4 class="border-bottom pb-2 mb-4">Liste des etudiants inscrits</h4>
     <div class="mt-4">
-    <div class="d-flex justify-content-end mb-4">
-        <a href="" class="btn btn-primary">Ajouter un nouvel étudiant</a>
+    <div class="d-flex justify-content-between mb-4">
+    {{ $etudiants->links() }}
+    <div><a href="{{ route('etudiant.create') }}" class="btn btn-primary">Ajouter un nouvel étudiant</a></div>
     </div>
         <table class="table table-bordered table-hover mt-2">
             <thead>
@@ -37,7 +38,6 @@
                     </tr>
                     @endforeach
                 </tbody>
-                {{ $etudiants->links() }}
         </table>
     </div>
 </div>
