@@ -20,6 +20,17 @@ class EtudiantController extends Controller
         $classes = Classe::all();
         return view('createEtudiant', compact('classes'));
     }
+    public function show($etudiant)
+    {
+        return view('showEtudiant')
+            ->with('etudiant', Etudiant::where('id',$etudiant)->firstOrFail());
+    }
+
+    public function edit(Etudiant $etudiant)
+    {
+        $classes = Classe::all();
+        return view('editEtudiant', compact('etudiant', 'classes'));
+    }
     /* la page create renvoie vers le store pour valider le formulaire */
     public function store(Request $request)
     {
@@ -40,12 +51,33 @@ class EtudiantController extends Controller
                 ->with('message',"L'étudiant ajouter avec succés!!");
     }
 
+    public function update(Request $request ,Etudiant $etudiant)
+    {
+        $request->validate([
+            "nom"=>"required",
+            "prenom"=>"required",
+            "classe_id"=>"required"
+
+        ]);
+
+        $etudiant->update([
+            "nom" => $request->input('nom'),
+            "prenom" => $request->input('prenom'),
+            "classe_id" => $request->classe_id
+        ]);
+        return redirect('etudiant')
+                ->with('message',"L'étudiant mis à jour avec succés!!");
+    }
+
     public function delete($etudiant)
     {
+        $nomComplet = $etudiant->nom ." " . $etudiant->prenom;
         Etudiant::find($etudiant)
                 ->delete();
 
         return redirect('etudiant')
-            ->with('message',"Etudiant supprimer avec succés!!");
+            ->with('message',"L'étudiant '$nomComplet' supprimer avec succés!!");
     }
+
+    
 }

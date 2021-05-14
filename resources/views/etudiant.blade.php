@@ -11,7 +11,7 @@
     {{ $etudiants->links() }}
     <div><a href="{{ route('etudiant.create') }}" class="btn btn-primary">Ajouter un nouvel étudiant</a></div>
     </div>
-    
+
     <!-- affichage des messages -->
     @if (session()->has('message'))
         <div>
@@ -48,10 +48,10 @@
                         @endif 
                         </td>
                         <td>
-                            <a href="" class="btn btn-info">Detail</a>
-                            <a href="" class="btn btn-warning">Editer</a>
+                            <a href="{{ route('etudiant.show', ['etudiant'=>$etudiant->id]) }}" class="btn btn-info">Detail</a>
+                            <a href="{{ route('etudiant.edit', ['etudiant'=>$etudiant->id]) }}" class="btn btn-warning">Editer</a>
                             <!-- ICI ON RECUPERE L ELEMENT A SUPPRIMER AVEC DU JS POUR ETRE SUR QUE L UTILISATEUR VEULENT SUPPRIMER -->
-                            <a href="" class="btn btn-danger" onclick="if(confirm('Voulez-vous vraiment supprimer cet étudiant?{{ $etudiant->nom }}'))
+                            <a href="#" class="btn btn-danger" onclick="if(confirm('Voulez-vous vraiment supprimer cet étudiant?{{ $etudiant->nom }}'))
                             {document.getElementById('form-{{ $etudiant->id }}').submit() }">Supprimer</a>
 
                             <form id="form-{{ $etudiant->id }}" action="{{ route('etudiant.delete', 
